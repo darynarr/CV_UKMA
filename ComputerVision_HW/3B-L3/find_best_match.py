@@ -5,7 +5,16 @@ import numpy as np
 # Find best match
 def find_best_match(patch, strip):
     # TODO: Find patch in strip and return column index (x value) of topleft corner
-    pass
+    best_id = None
+    min_diff = np.inf
+    strip_n, patch_n = strip.shape[1], patch.shape[1]
+    for i in range(strip_n-patch_n):
+        temp = strip[:, i: i + patch_n]
+        ssd = np.sum(np.power(temp - patch, 2))
+        if ssd < min_diff:
+            best_id, min_diff = i, ssd
+    return best_id
+
 
 # Test code:
 

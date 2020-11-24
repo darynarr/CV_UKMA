@@ -7,8 +7,15 @@ import matplotlib.pyplot as plt
 # Find best match
 def find_best_match(patch, strip):
     # TODO: Find patch in strip and return column index (x value) of topleft corner
-    # Paste your answer from the previous quiz here
-    pass
+    best_id = None
+    min_diff = np.inf
+    strip_n, patch_n = strip.shape[1], patch.shape[1]
+    for i in range(strip_n-patch_n):
+        temp = strip[:, i: i + patch_n]
+        ssd = np.sum(np.power(temp - patch, 2))
+        if ssd < min_diff:
+            best_id, min_diff = i, ssd
+    return best_id
 
 
 def match_strips(strip_left, strip_right, b):
@@ -16,7 +23,15 @@ def match_strips(strip_left, strip_right, b):
     # find the best matching position (along X-axis) in the right strip.
     # Return a vector of disparities (left X-position - right X-position).
     # Note: Only consider whole blocks that fit within image bounds.
-    pass
+    disparities = []
+
+    for x_left in range(0, strip_left.shape[1]+1, b):
+        patch_left = strip_left[:, x_left: x_left + b]
+        x_right = find_best_match(patch_left, strip_right)
+        disparities.append(x_left - x_right)
+
+    return np.array([disparities])
+
 
 # Test code:
 

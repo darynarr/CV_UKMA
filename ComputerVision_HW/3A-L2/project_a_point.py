@@ -8,8 +8,11 @@ import numpy as np
 
 
 def project_point(p, f):
-    # TODO: Define and apply projection matrix
-    pass
+    p = p[0]
+    u = -f * (p[0] / p[2])
+    v = -f * (p[1] / p[2])
+    return np.array([[u, v]])
+
 
 # Test: Given point and focal length (units: mm)
 p = np.array([[200, 100, 120]])
