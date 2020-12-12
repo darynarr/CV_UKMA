@@ -3,12 +3,13 @@ import cv2
 
 def downsample(img):
     # TODO: img_d = ? (pick alternate rows, cols: 1, 3, 5, ...)
-    pass
+    return img[::2, ::2, :]
 
 
 def blur_downsample(img):
     # TODO img_bd = ? (blur by 5x5 gaussian, then downsample)
-    pass
+    blur_img = cv2.GaussianBlur(img, (5, 5), 0)
+    return downsample(blur_img)
 
 
 img = cv2.imread('images/frizzy.png')

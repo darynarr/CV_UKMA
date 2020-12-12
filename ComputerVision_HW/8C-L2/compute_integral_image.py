@@ -4,7 +4,7 @@ import numpy as np
 
 def compute_integral(img):
     # TODO: Compute I such that I(y,x) = sum of img(1,1) to img(y,x)
-    pass
+    return np.cumsum(np.cumsum(img, axis=0), axis=1)
 
 
 img = cv2.imread('images/dolphin.png', 0)
